@@ -1,5 +1,8 @@
 <template lang="pug">
-div
-  h1 App.vue
-  router-view
+v-app
+  v-main
+    h1 App.vue
+    router-view
 </template>
+
+<script lang="ts" setup></script>

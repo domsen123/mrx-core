@@ -10,6 +10,10 @@ export const options = {
 };
 
 export const main = async (ctx: any) => {
+  Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
+    i.install?.(ctx),
+  );
+
   const { app } = ctx;
   const head = createHead();
   app.use(head);

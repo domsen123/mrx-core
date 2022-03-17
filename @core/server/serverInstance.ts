@@ -67,7 +67,7 @@ export const startInstance = async (mode: 'dev' | 'prod') => {
         if (req.url!.startsWith(apiPrefix) || isAssetRequest) return next();
         if (req.method === 'GET') {
           const url = `http://${req.headers.host}${req.url}`;
-          const context = await renderPage.default(url, {
+          const context = await renderPage(url, {
             manifest,
             preload: true,
             request: req,
