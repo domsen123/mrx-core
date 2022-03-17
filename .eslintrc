@@ -1,0 +1,29 @@
+{
+  "extends": ["@antfu", "prettier"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-redeclare": [
+      "warn",
+      {
+        "ignoreDeclarationMerge": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "no-unused-vars": "off",
+        "no-undef": "off",
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    }
+  ]
+}

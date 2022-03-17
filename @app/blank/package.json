@@ -1,0 +1,16 @@
+{
+  "name": "@app/blank",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index",
+  "scripts": {
+    "test": "mrx test",
+    "dev": "mrx dev",
+    "start": "mrx start",
+    "build": "mrx build",
+    "build:watch": "mrx build:watch"
+  },
+  "dependencies": {
+    "@mrx/cli": "workspace:^1.0.0"
+  }
+}

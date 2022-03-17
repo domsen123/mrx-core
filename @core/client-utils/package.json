@@ -1,0 +1,9 @@
+{
+  "name": "@mrx/client-utils",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index",
+  "dependencies": {
+    "pino": "^7.9.0"
+  }
+}

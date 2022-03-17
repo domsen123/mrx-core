@@ -1,0 +1,15 @@
+{
+  "name": "@mrx/client",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "dependencies": {
+    "@vitejs/plugin-vue": "^2.2.4",
+    "@vueuse/head": "^0.7.5",
+    "pug": "^3.0.2",
+    "vite": "^2.8.6",
+    "vite-ssr": "^0.15.0",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.13"
+  }
+}

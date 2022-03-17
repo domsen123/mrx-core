@@ -1,0 +1,21 @@
+{
+  "name": "@mrx/cli",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index",
+  "dependencies": {
+    "@mrx/client": "workspace:^1.0.0",
+    "@mrx/client-utils": "workspace:^1.0.0",
+    "@mrx/server": "workspace:^1.0.0",
+    "@mrx/server-utils": "workspace:^1.0.0",
+    "@mrx/types": "workspace:^1.0.0",
+    "@types/nodemon": "^1.19.1",
+    "commander": "^9.0.0",
+    "dotenv": "^16.0.0",
+    "esbuild": "^0.14.27",
+    "nodemon": "^2.0.15"
+  },
+  "bin": {
+    "mrx": "./cli.js"
+  }
+}
