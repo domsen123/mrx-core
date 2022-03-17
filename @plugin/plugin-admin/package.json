@@ -1,0 +1,7 @@
+{
+  "name": "@mrx/plugin-admin",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index",
+  "dependencies": {}
+}

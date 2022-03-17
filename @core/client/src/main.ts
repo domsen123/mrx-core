@@ -1,4 +1,5 @@
 import { createHead } from '@vueuse/head';
+import type { Context } from '../types';
 
 export const options = {
   routes: [
@@ -9,7 +10,7 @@ export const options = {
   ],
 };
 
-export const main = async (ctx: any) => {
+export const main = async (ctx: Context) => {
   Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
     i.install?.(ctx),
   );
