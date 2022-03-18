@@ -4,11 +4,12 @@ import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 import ViteSsr from 'vite-ssr/plugin';
 import Vuetify from '@vuetify/vite-plugin';
-import { appRoot, appSrc } from '@mrx/server/serverUtils';
 
 const require = createRequire(import.meta.url);
 const clientRoot = dirname(require.resolve('@mrx/client'));
 const clientSrc = resolve(clientRoot, 'src');
+const appRoot = process.cwd();
+const appSrc = resolve(appRoot, 'src');
 
 export default defineConfig({
   root: clientRoot,

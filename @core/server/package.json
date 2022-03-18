@@ -2,7 +2,7 @@
   "name": "@mrx/server",
   "version": "1.0.0",
   "type": "module",
-  "main": "index",
+  "main": "index.ts",
   "dependencies": {
     "@mrx/client": "workspace:^1.0.0",
     "fastify": "^3.27.4",

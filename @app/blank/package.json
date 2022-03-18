@@ -2,7 +2,7 @@
   "name": "@app/blank",
   "version": "1.0.0",
   "type": "module",
-  "main": "index",
+  "main": "index.ts",
   "scripts": {
     "test": "mrx test",
     "dev": "mrx dev",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mrx/cli": "workspace:^1.0.0",
+    "@mrx/client": "workspace:^1.0.0",
     "@mrx/plugin-admin": "workspace:^1.0.0",
     "@mrx/utils": "workspace:^1.0.0"
   }

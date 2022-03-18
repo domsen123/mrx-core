@@ -1,4 +1,8 @@
+import { createRequire } from 'module';
+import { dirname } from 'path';
 import { getLogger } from '@mrx/utils';
+
+const require = createRequire(import.meta.url);
 
 export const restartInitializer = async (command = 'start') => {
   const { default: nodemon } = await import('nodemon');
@@ -6,9 +10,8 @@ export const restartInitializer = async (command = 'start') => {
     verbose: true,
     exec: `pnpm exec mrx ${command}`,
     cwd: process.cwd(),
-    watch: [process.cwd()],
-    ignore: ['*.d.ts', '**/dist/*', '**/*.vue', '**/@mrx/client/src/*'],
-    ignoreRoot: ['.git', 'node_modules/!(@mrx/server)/*'],
+    watch: [process.cwd(), dirname(require.resolve('@mrx/server'))],
+    ignore: ['*.d.ts', '**/dist/*'],
     ext: 'ts',
   });
   nodemon

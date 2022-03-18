@@ -2,7 +2,7 @@
   "name": "@mrx/utils",
   "version": "1.0.0",
   "type": "module",
-  "main": "index",
+  "main": "index.ts",
   "dependencies": {
     "@mrx/types": "workspace:^1.0.0",
     "pino": "^7.9.0",
