@@ -5,10 +5,9 @@
   "main": "index",
   "dependencies": {
     "@mrx/client": "workspace:^1.0.0",
-    "@mrx/utils": "workspace:^1.0.0",
     "@mrx/server": "workspace:^1.0.0",
-    "@mrx/server-utils": "workspace:^1.0.0",
     "@mrx/types": "workspace:^1.0.0",
+    "@mrx/utils": "workspace:^1.0.0",
     "@types/nodemon": "^1.19.1",
     "commander": "^9.0.0",
     "dotenv": "^16.0.0",

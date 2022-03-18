@@ -11,4 +11,16 @@ export default defineApp(async () => ({
     },
   ]),
   plugins: [AdminPlugin()],
+  settings: {
+    theme: {
+      defaultTheme: 'light',
+      light: {
+        dark: false,
+        colors: {
+          primary: '#0E185F',
+          secondary: '#2FA4FF',
+        },
+      },
+    },
+  },
 }));
