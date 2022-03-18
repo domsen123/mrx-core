@@ -5,6 +5,7 @@ import type { Context } from '../types';
 
 const { routes, settings } = await extendClient({ app: app() });
 useClientSettings().setSettings(settings);
+
 export const options = {
   routes,
 };

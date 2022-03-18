@@ -5,9 +5,8 @@ export const useClientSettings = () => {
   const setSettings = (s: ClientSettings) => {
     __settings = s;
   };
-  const getSetting = <K extends keyof ClientSettings>(
-    key: K,
-  ): ClientSettings[K] => {
+
+  const getSetting = (key: keyof ClientSettings) => {
     return __settings[key];
   };
 

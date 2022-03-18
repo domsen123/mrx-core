@@ -6,9 +6,14 @@ interface Theme {
   themes?: Record<string, ThemeDefinition>;
 }
 
-export interface ClientSettings
-  extends Record<string | number | symbol, unknown> {
+// export interface ClientSettings
+//   extends Record<string | number | symbol, unknown> {
+//   theme?: Theme;
+// }
+
+export interface ClientSettings {
   theme?: Theme;
+  // [key: string | number | symbol]: unknown;
 }
 
 export interface ClientDefinition {
