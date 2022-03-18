@@ -15,6 +15,13 @@ export default defineApp(async () => ({
   settings: {
     theme: {
       defaultTheme: 'light',
+      dark: {
+        dark: true,
+        colors: {
+          primary: '#0E185F',
+          secondary: '#2FA4FF',
+        },
+      },
       light: {
         dark: false,
         colors: {

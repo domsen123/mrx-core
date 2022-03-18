@@ -1,15 +1,26 @@
 <template lang="pug">
-v-main.auth-layout
-  v-layout.d-flex.flex-grow-1
-    v-spacer
-    v-col.elevation-5.pa-0(cols="3")
-      v-toolbar.bg-transparent
-        v-btn(icon="mdi-heart")
-      v-container(fuid)
-        router-view
+v-defaults-provider(:defaults="defaults")
+  v-main.auth-layout
+    v-layout.d-flex.flex-grow-1(:style="styles")
+      v-spacer
+      v-col.d-flex.flex-column.elevation-5.pa-0.bg-background(cols="3")
+        v-toolbar.bg-transparent
+          v-btn(v-if="source" icon @click="$router.back()")
+            i-ph-arrow-left
+        v-container.d-flex.flex-grow-1.flex-column.justify-center(fuid)
+            router-view
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useRouteQuery } from '@vueuse/router';
+import defaults from '../vuetifyDefaults';
+import BackgroundImage from '../assets/img/bg.jpg';
+const source = useRouteQuery('source', '');
+
+const styles = {
+  backgroundImage: `url(${BackgroundImage})`,
+};
+</script>
 
 <style lang="scss">
 .auth-layout {

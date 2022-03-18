@@ -7,9 +7,5 @@ v-defaults-provider(:defaults="defaults")
 </template>
 
 <script lang="ts" setup>
-const defaults = {
-  VAppBar: {
-    flat: true,
-  },
-};
+import defaults from '../vuetifyDefaults';
 </script>

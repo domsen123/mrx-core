@@ -22,6 +22,14 @@ export default defineAppRoutes([
         path: '',
         component: () => import('./pages/auth/SignIn.vue'),
       },
+      {
+        path: 'sign-up',
+        component: () => import('./pages/auth/SignUp.vue'),
+      },
+      {
+        path: 'reset-password',
+        component: () => import('./pages/auth/ResetPassword.vue'),
+      },
     ],
   },
 ]);
