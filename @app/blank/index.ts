@@ -1,4 +1,5 @@
 import { defineApp, defineAppRoutes } from '@mrx/utils';
+import AdminPlugin from '@mrx/plugin-admin';
 import pkg from './package.json';
 
 export default defineApp(async () => ({
@@ -9,4 +10,5 @@ export default defineApp(async () => ({
       component: () => import('~/pages/Home.vue'),
     },
   ]),
+  plugins: [AdminPlugin()],
 }));

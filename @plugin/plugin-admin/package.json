@@ -3,5 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "main": "index",
-  "dependencies": {}
+  "dependencies": {
+    "@mrx/utils": "workspace:^1.0.0"
+  }
 }

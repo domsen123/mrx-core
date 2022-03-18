@@ -1,4 +1,5 @@
 import type { ClientDefinition, RouteRecordRaw } from '@mrx/types';
+import { getLogger } from './logger';
 
 interface ExtendClientOptions {
   app: Promise<ClientDefinition>;
@@ -6,8 +7,9 @@ interface ExtendClientOptions {
 }
 export const extendClient = async (options: ExtendClientOptions) => {
   const { app, routes = [] } = options;
+  const { name, routes: _r = [], plugins: _p = [] } = await app;
+  getLogger().info(`Extending ${name}`);
 
-  const { routes: _r = [], plugins: _p = [] } = await app;
   // apply routes
   _r.forEach((r) => routes.push(r));
   for (const p of _p) {

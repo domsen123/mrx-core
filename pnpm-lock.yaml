@@ -23,9 +23,11 @@ importers:
   '@app/blank':
     specifiers:
       '@mrx/cli': workspace:^1.0.0
+      '@mrx/plugin-admin': workspace:^1.0.0
       '@mrx/utils': workspace:^1.0.0
     dependencies:
       '@mrx/cli': link:../../@core/cli
+      '@mrx/plugin-admin': link:../../@plugin/plugin-admin
       '@mrx/utils': link:../../@core/utils
 
   '@core/cli':
@@ -123,6 +125,12 @@ importers:
     dependencies:
       '@mrx/types': link:../types
       pino: 7.9.0
+
+  '@plugin/plugin-admin':
+    specifiers:
+      '@mrx/utils': workspace:^1.0.0
+    dependencies:
+      '@mrx/utils': link:../../@core/utils
 
 packages:
 

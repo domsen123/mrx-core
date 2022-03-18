@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mrx/cli": "workspace:^1.0.0",
+    "@mrx/plugin-admin": "workspace:^1.0.0",
     "@mrx/utils": "workspace:^1.0.0"
   }
 }
