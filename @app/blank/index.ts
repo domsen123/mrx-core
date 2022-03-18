@@ -1,3 +1,4 @@
+// import '~/assets/scss/vuetify.scss';
 import { defineApp, defineAppRoutes } from '@mrx/utils';
 import AdminPlugin from '@mrx/plugin-admin';
 import pkg from './package.json';

@@ -1,5 +1,5 @@
 @use 'vuetify/styles' with (
-  // $body-font-family: 'monospace',
+  $body-font-family: 'monospace',
   $container-max-widths:
     ('sm': 584px, 'md': 648px, 'lg': 912px, 'xl': 1020px, 'xxl': 1020px),
   // See also client/src/app/core/plugins/vuetify.ts.

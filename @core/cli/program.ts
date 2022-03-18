@@ -33,6 +33,7 @@ export const execute = async (): Promise<void> => {
   commander.command('build').action(async () => {
     process.env.NODE_ENV = process.env.NODE_ENV ?? 'production';
     await build();
+    getLogger().info('👌 Build Done!');
   });
 
   commander.command('build:watch').action(async () => {

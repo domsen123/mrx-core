@@ -45,7 +45,7 @@ export default defineConfig({
       },
     }),
     Vue(),
-    Vuetify({ styles: 'expose', autoImport: false }),
+    Vuetify({ autoImport: false }),
   ],
   optimizeDeps: {
     include: ['vue', 'vue-router', 'vuetify'],

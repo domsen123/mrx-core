@@ -1,3 +1,4 @@
 <template lang="pug">
-h1 Admin Page
+v-container(fluid)
+  h1 Admin Page
 </template>
