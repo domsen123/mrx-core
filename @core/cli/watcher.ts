@@ -7,16 +7,15 @@ export const restartInitializer = async (command = 'start') => {
     exec: `pnpm exec mrx ${command}`,
     cwd: process.cwd(),
     watch: [process.cwd()],
-    ignore: ['*.d.ts', '**/dist/*', '**/*.vue', '**/@mrx/client/src/**'],
-    ignoreRoot: ['.git', 'node_modules/!(@mrx)/**/*'],
+    ignore: ['*.d.ts', '**/dist/*', '**/*.vue', '**/@mrx/client/src/*'],
+    ignoreRoot: ['.git', 'node_modules/!(@mrx/server)/*'],
     ext: 'ts',
   });
   nodemon
-    .on('restart', (files: string[]) => {
-      getLogger().info(`Restart: %o`, files);
+    .on('restart', (files) => {
+      getLogger().info('🔄 Files Changed: Restarting Server! %o', files);
     })
     .on('quit', () => {
-      getLogger().info(`Stop!`);
       process.exit(0);
     });
 };

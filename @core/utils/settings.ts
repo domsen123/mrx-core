@@ -6,12 +6,17 @@ export const useClientSettings = () => {
     __settings = s;
   };
 
+  const setSetting = (key: keyof ClientSettings, value: any): void => {
+    __settings[key] = value;
+  };
+
   const getSetting = (key: keyof ClientSettings) => {
     return __settings[key];
   };
 
   return {
     setSettings,
+    setSetting,
     getSetting,
   };
 };

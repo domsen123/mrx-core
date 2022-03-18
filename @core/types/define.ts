@@ -1,4 +1,4 @@
-import type { RouteRecordRaw, ThemeDefinition } from './client';
+import type { Context, RouteRecordRaw, ThemeDefinition } from './client';
 import type { Knex } from './server';
 
 /* #region  Client Types */
@@ -17,6 +17,7 @@ export interface ClientDefinition {
   routes?: RouteRecordRaw[];
   plugins?: Promise<PluginClientDefinition>[];
   settings?: ClientSettings;
+  setup?: (ctx: Context) => Promise<void>;
 }
 
 export interface PluginClientDefinition
@@ -26,12 +27,16 @@ export interface PluginClientDefinition
 /* #region  Server Types */
 export interface ServerSettings {
   database?: Knex.Config;
+  serverPort?: number;
+  apiPrefix?: string;
 }
 
 export interface ServerDefinition {
   name: string;
-  plugins?: Promise<ServerPluginDefinition>;
+  endpoints?: any[];
+  plugins?: Promise<ServerPluginDefinition>[];
   settings?: ServerSettings;
+  onReady?: () => Promise<void>;
 }
 export interface ServerPluginDefinition
   extends Omit<ServerDefinition, 'settings'> {}
