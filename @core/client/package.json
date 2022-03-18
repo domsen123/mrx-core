@@ -4,6 +4,8 @@
   "type": "module",
   "main": "index.ts",
   "dependencies": {
+    "@mrx/server": "workspace:^1.0.0",
+    "@mrx/utils": "workspace:^1.0.0",
     "@vitejs/plugin-vue": "^2.2.4",
     "@vuetify/vite-plugin": "^1.0.0-alpha.10",
     "@vueuse/head": "^0.7.5",

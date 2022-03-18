@@ -23,8 +23,10 @@ importers:
   '@app/blank':
     specifiers:
       '@mrx/cli': workspace:^1.0.0
+      '@mrx/utils': workspace:^1.0.0
     dependencies:
       '@mrx/cli': link:../../@core/cli
+      '@mrx/utils': link:../../@core/utils
 
   '@core/cli':
     specifiers:
@@ -52,6 +54,8 @@ importers:
 
   '@core/client':
     specifiers:
+      '@mrx/server': workspace:^1.0.0
+      '@mrx/utils': workspace:^1.0.0
       '@vitejs/plugin-vue': ^2.2.4
       '@vuetify/vite-plugin': ^1.0.0-alpha.10
       '@vueuse/head': ^0.7.5
@@ -63,6 +67,8 @@ importers:
       vue-router: ^4.0.13
       vuetify: ^3.0.0-beta.0
     dependencies:
+      '@mrx/server': link:../server
+      '@mrx/utils': link:../utils
       '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
       '@vuetify/vite-plugin': 1.0.0-alpha.10_vite@2.8.6+vuetify@3.0.0-beta.0
       '@vueuse/head': 0.7.5_vue@3.2.31
@@ -109,6 +115,14 @@ importers:
       '@mrx/client': link:../client
       '@mrx/server': link:../server
       '@mrx/utils': link:../utils
+
+  '@core/utils':
+    specifiers:
+      '@mrx/types': workspace:^1.0.0
+      pino: ^7.9.0
+    dependencies:
+      '@mrx/types': link:../types
+      pino: 7.9.0
 
 packages:
 

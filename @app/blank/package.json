@@ -12,6 +12,7 @@
     "build:watch:start": "mrx build:watch:start"
   },
   "dependencies": {
-    "@mrx/cli": "workspace:^1.0.0"
+    "@mrx/cli": "workspace:^1.0.0",
+    "@mrx/utils": "workspace:^1.0.0"
   }
 }

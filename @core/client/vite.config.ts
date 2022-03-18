@@ -4,17 +4,19 @@ import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 import ViteSsr from 'vite-ssr/plugin';
 import Vuetify from '@vuetify/vite-plugin';
-import { appSrc } from '@mrx/utils';
+import { appRoot, appSrc } from '@mrx/server/serverUtils';
 
 const require = createRequire(import.meta.url);
 const clientRoot = dirname(require.resolve('@mrx/client'));
+const clientSrc = resolve(clientRoot, 'src');
 
 export default defineConfig({
   root: clientRoot,
   resolve: {
     alias: {
       '~/': `${appSrc}/`,
-      'client-src/': `${resolve(clientRoot, 'src')}/`,
+      'app-root/': `${appRoot}/`,
+      'client-src/': `${clientSrc}/`,
     },
   },
   plugins: [

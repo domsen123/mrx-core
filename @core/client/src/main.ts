@@ -1,13 +1,11 @@
+import app from 'app-root/index';
+import { extendClient } from '@mrx/utils';
 import { createHead } from '@vueuse/head';
 import type { Context } from '../types';
 
+const { routes } = await extendClient({ app: app() });
 export const options = {
-  routes: [
-    {
-      path: '/',
-      component: () => import('./Page.vue'),
-    },
-  ],
+  routes,
 };
 
 export const main = async (ctx: Context) => {
