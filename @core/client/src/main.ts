@@ -1,9 +1,10 @@
 import app from 'app-root/index';
-import { extendClient } from '@mrx/utils';
+import { extendClient, useClientSettings } from '@mrx/utils';
 import { createHead } from '@vueuse/head';
 import type { Context } from '../types';
 
-const { routes } = await extendClient({ app: app() });
+const { routes, settings } = await extendClient({ app: app() });
+useClientSettings().setSettings(settings);
 export const options = {
   routes,
 };

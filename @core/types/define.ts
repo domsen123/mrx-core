@@ -1,7 +1,15 @@
-import type { RouteRecordRaw } from './client';
+import type { RouteRecordRaw, ThemeDefinition } from './client';
+
+interface Theme {
+  defaultTheme?: string;
+  variations?: false | { colors: string[]; lighten: number; darken: number };
+  themes?: Record<string, ThemeDefinition>;
+}
 
 export interface ClientSettings
-  extends Record<string | number | symbol, unknown> {}
+  extends Record<string | number | symbol, unknown> {
+  theme?: Theme;
+}
 
 export interface ClientDefinition {
   name: string;
