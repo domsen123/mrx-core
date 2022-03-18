@@ -61,10 +61,10 @@ importers:
       vite-ssr: ^0.15.0
       vue: ^3.2.31
       vue-router: ^4.0.13
-      vuetify: npm:@vuetify/nightly@^3.0.0-next-20220317.0
+      vuetify: ^3.0.0-beta.0
     dependencies:
       '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
-      '@vuetify/vite-plugin': 1.0.0-alpha.10_164f3d2a186828c3cf4e9258ceeb7c5e
+      '@vuetify/vite-plugin': 1.0.0-alpha.10_vite@2.8.6+vuetify@3.0.0-beta.0
       '@vueuse/head': 0.7.5_vue@3.2.31
       pug: 3.0.2
       sass: 1.49.9
@@ -72,7 +72,7 @@ importers:
       vite-ssr: 0.15.0_725d7ddb81c2f32bcc2b6c150c4d5650
       vue: 3.2.31
       vue-router: 4.0.13_vue@3.2.31
-      vuetify: /@vuetify/nightly/3.0.0-next-20220317.0_vue@3.2.31
+      vuetify: 3.0.0-beta.0_vue@3.2.31
 
   '@core/client-utils':
     specifiers:
@@ -101,7 +101,14 @@ importers:
       '@mrx/client-utils': link:../client-utils
 
   '@core/types':
-    specifiers: {}
+    specifiers:
+      '@mrx/client': workspace:^1.0.0
+      '@mrx/server': workspace:^1.0.0
+      '@mrx/utils': workspace:^1.0.0
+    dependencies:
+      '@mrx/client': link:../client
+      '@mrx/server': link:../server
+      '@mrx/utils': link:../utils
 
 packages:
 
@@ -804,34 +811,17 @@ packages:
     resolution: {integrity: sha512-ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ==}
     dev: false
 
-  /@vuetify/loader-shared/1.3.0_79ceb3c051a41d4460388869484599fc:
+  /@vuetify/loader-shared/1.3.0_vuetify@3.0.0-beta.0:
     resolution: {integrity: sha512-sxLvMYUTQCZJ4u6jS6rSWsjfagzytqylFnDuVcUNi0wy4qq5f1zTrHs5tZfRBppERmexeW3e57vqZAUfZPmfUA==}
     peerDependencies:
       vuetify: ^3.0.0-alpha.11
     dependencies:
       find-cache-dir: 3.3.2
       upath: 2.0.1
-      vuetify: /@vuetify/nightly/3.0.0-next-20220317.0_vue@3.2.31
+      vuetify: 3.0.0-beta.0_vue@3.2.31
     dev: false
 
-  /@vuetify/nightly/3.0.0-next-20220317.0_vue@3.2.31:
-    resolution: {integrity: sha512-LUwEJT2lW0soblkjyXZyh/Bmq0J0AU/in9fa8ZnvW6TUR73oWTPve/LCTEayMVZMWeMKxit9MaHrG5dp7cNs4w==}
-    peerDependencies:
-      '@formatjs/intl': ^1.0.0 || ^2.0.0
-      vue: ^3.2.19
-      vue-i18n: ^9.0.0
-    peerDependenciesMeta:
-      '@formatjs/intl':
-        optional: true
-      vue:
-        optional: true
-      vue-i18n:
-        optional: true
-    dependencies:
-      vue: 3.2.31
-    dev: false
-
-  /@vuetify/vite-plugin/1.0.0-alpha.10_164f3d2a186828c3cf4e9258ceeb7c5e:
+  /@vuetify/vite-plugin/1.0.0-alpha.10_vite@2.8.6+vuetify@3.0.0-beta.0:
     resolution: {integrity: sha512-+McI76gXccCi3Ci/Z5YfG81eIW8IJpXKk5G/ljfIoHdez2f+NRqzoPz+v/8K7QCrC6HqfwxJ9ygI9yrvqNpsdw==}
     engines: {node: '>=12'}
     peerDependencies:
@@ -841,10 +831,10 @@ packages:
       vite:
         optional: true
     dependencies:
-      '@vuetify/loader-shared': 1.3.0_79ceb3c051a41d4460388869484599fc
+      '@vuetify/loader-shared': 1.3.0_vuetify@3.0.0-beta.0
       debug: 4.3.4
       vite: 2.8.6_sass@1.49.9
-      vuetify: /@vuetify/nightly/3.0.0-next-20220317.0_vue@3.2.31
+      vuetify: 3.0.0-beta.0_vue@3.2.31
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -4691,6 +4681,23 @@ packages:
       '@vue/runtime-dom': 3.2.31
       '@vue/server-renderer': 3.2.31_vue@3.2.31
       '@vue/shared': 3.2.31
+    dev: false
+
+  /vuetify/3.0.0-beta.0_vue@3.2.31:
+    resolution: {integrity: sha512-/xDoSTs1l/s9jkFwQ5uK9ok9py0TsImRENA7DrAJnsgx5cwH9yEvS3XJOUOsH3ra+VYt5xZP7Pfh8/HtBQaAlw==}
+    peerDependencies:
+      '@formatjs/intl': ^1.0.0 || ^2.0.0
+      vue: ^3.2.19
+      vue-i18n: ^9.0.0
+    peerDependenciesMeta:
+      '@formatjs/intl':
+        optional: true
+      vue:
+        optional: true
+      vue-i18n:
+        optional: true
+    dependencies:
+      vue: 3.2.31
     dev: false
 
   /wcwidth/1.0.1:

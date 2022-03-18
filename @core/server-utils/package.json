@@ -1,9 +1,0 @@
-{
-  "name": "@mrx/server-utils",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "index",
-  "dependencies": {
-    "@mrx/client-utils": "workspace:^1.0.0"
-  }
-}

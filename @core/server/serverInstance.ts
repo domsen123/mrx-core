@@ -6,7 +6,7 @@ import fastifyCompress from 'fastify-compress';
 import fastifyStatic from 'fastify-static';
 import middie from 'middie';
 import { createSsrServer } from '@mrx/client';
-import { appDist, getLogger } from '@mrx/server-utils';
+import { appDist, getLogger } from '@mrx/server';
 
 const require = createRequire(import.meta.url);
 

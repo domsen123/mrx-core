@@ -5,7 +5,7 @@
   "main": "index",
   "dependencies": {
     "@mrx/client": "workspace:^1.0.0",
-    "@mrx/client-utils": "workspace:^1.0.0",
+    "@mrx/utils": "workspace:^1.0.0",
     "@mrx/server": "workspace:^1.0.0",
     "@mrx/server-utils": "workspace:^1.0.0",
     "@mrx/types": "workspace:^1.0.0",

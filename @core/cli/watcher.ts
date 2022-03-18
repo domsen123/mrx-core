@@ -1,4 +1,4 @@
-import { getLogger } from '@mrx/client-utils';
+import { getLogger } from '@mrx/utils';
 
 export const restartInitializer = async (command = 'start') => {
   const { default: nodemon } = await import('nodemon');

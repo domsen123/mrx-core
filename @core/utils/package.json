@@ -1,5 +1,5 @@
 {
-  "name": "@mrx/client-utils",
+  "name": "@mrx/utils",
   "version": "1.0.0",
   "type": "module",
   "main": "index",

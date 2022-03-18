@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 import ViteSsr from 'vite-ssr/plugin';
 import Vuetify from '@vuetify/vite-plugin';
-import { appSrc } from '@mrx/client-utils';
+import { appSrc } from '@mrx/utils';
 
 const require = createRequire(import.meta.url);
 const clientRoot = dirname(require.resolve('@mrx/client'));
