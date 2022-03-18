@@ -1,6 +1,6 @@
+import type { TObject } from '@sinclair/typebox';
 import type { Context, RouteRecordRaw, ThemeDefinition } from './client';
-import type { Knex } from './server';
-
+import type { Knex, RouteOptions } from './server';
 /* #region  Client Types */
 interface Theme {
   defaultTheme?: string;
@@ -31,12 +31,18 @@ export interface ServerSettings {
   apiPrefix?: string;
 }
 
+export interface Resource {
+  name: string;
+  schema: TObject<any>;
+}
+
 export interface ServerDefinition {
   name: string;
-  endpoints?: any[];
+  endpoints?: RouteOptions[];
   plugins?: Promise<ServerPluginDefinition>[];
   settings?: ServerSettings;
-  onReady?: () => Promise<void>;
+  resources?: Resource[];
+  onReady?: (definition: ServerDefinition) => Promise<void>;
 }
 export interface ServerPluginDefinition
   extends Omit<ServerDefinition, 'settings'> {}

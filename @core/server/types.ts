@@ -4,5 +4,16 @@ import type {
   FastifyReply,
   FastifyRequest,
   HTTPMethods,
+  RouteHandler,
+  RouteOptions,
 } from 'fastify';
-export { Knex, FastifyInstance, FastifyReply, FastifyRequest, HTTPMethods };
+
+export {
+  FastifyInstance,
+  FastifyReply,
+  FastifyRequest,
+  HTTPMethods,
+  Knex,
+  RouteHandler,
+  RouteOptions,
+};

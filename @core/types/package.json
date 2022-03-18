@@ -6,6 +6,7 @@
   "dependencies": {
     "@mrx/client": "workspace:^1.0.0",
     "@mrx/server": "workspace:^1.0.0",
-    "@mrx/utils": "workspace:^1.0.0"
+    "@mrx/utils": "workspace:^1.0.0",
+    "@sinclair/typebox": "^0.23.4"
   }
 }

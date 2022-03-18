@@ -10,27 +10,45 @@ const DEFAULT_API_PREFIX = '/_api';
 const DEFAULT_PORT = 1337;
 
 export const startInstance = async (mode: 'dev' | 'prod') => {
+  const { setSetting, getSetting } = useServerSettings();
+
+  // Create Fastify Instance
+  const app = fastify({
+    logger: false,
+  });
+  // Add middleware functionality
+  await app.register(middie);
+
+  // Extend Server (Application & Plugins)
   const server = await importIfExists<() => Promise<ServerDefinition>>(
     resolve(process.cwd(), 'server.ts'),
   );
 
-  const { setSetting, getSetting } = useServerSettings();
-
   if (server) {
-    const { endpoints, onReady } = await extendServer({
+    const { endpoints, onReady, resources } = await extendServer({
       server: server.default(),
     });
+
+    // Call every onReady Hook on App/Plugins
     for (const _onReady of onReady) {
-      await _onReady();
+      await _onReady;
+    }
+
+    // Setup every endpoint from App/Plugins
+    for (const endpoint of endpoints) {
+      await app.route(endpoint);
+    }
+
+    for (const resource of resources) {
+      // TODO
     }
   }
+
+  // Set default settings
   if (!getSetting('apiPrefix')) setSetting('apiPrefix', DEFAULT_API_PREFIX);
   if (!getSetting('serverPort')) setSetting('serverPort', DEFAULT_PORT);
 
-  const app = fastify({
-    logger: false,
-  });
-  await app.register(middie);
+  // Render SSR Application
   await renderRequest(app, mode);
 
   try {

@@ -1,4 +1,8 @@
-import type { ServerDefinition, ServerPluginDefinition } from '@mrx/types';
+import type {
+  RouteHandler,
+  ServerDefinition,
+  ServerPluginDefinition,
+} from '@mrx/types';
 
 export const defineServer = (
   fn: () => Promise<ServerDefinition>,
@@ -6,3 +10,5 @@ export const defineServer = (
 export const defineServerPlugin = (
   fn: () => Promise<ServerPluginDefinition>,
 ): (() => Promise<ServerPluginDefinition>) => fn;
+
+export const defineMiddleware = (fn: RouteHandler) => fn;
