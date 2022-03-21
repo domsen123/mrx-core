@@ -1,6 +1,6 @@
 import type { TObject } from '@sinclair/typebox';
 import type { Context, RouteRecordRaw, ThemeDefinition } from './client';
-import type { Knex, RouteOptions } from './server';
+import type { FastifyInstance, Knex, RouteOptions } from './server';
 /* #region  Client Types */
 interface Theme {
   defaultTheme?: string;
@@ -36,13 +36,20 @@ export interface Resource {
   schema: TObject<any>;
 }
 
+interface ServerOnReady {
+  settings: ServerSettings;
+  resources: Resource[];
+  endpoints: RouteOptions[];
+  app: FastifyInstance;
+}
+
 export interface ServerDefinition {
   name: string;
   endpoints?: RouteOptions[];
   plugins?: Promise<ServerPluginDefinition>[];
   settings?: ServerSettings;
   resources?: Resource[];
-  onReady?: (definition: ServerDefinition) => Promise<void>;
+  onReady?: (definition: ServerOnReady) => Promise<void>;
 }
 export interface ServerPluginDefinition
   extends Omit<ServerDefinition, 'settings'> {}

@@ -27,3 +27,9 @@ export enum BASE_ROLE {
   READ = 'read',
   VISITOR = 'visitor',
 }
+
+export enum AUTH_ENDPOINT {
+  SIGN_IN = '/auth/sign-in',
+  SIGN_UP = '/auth/sign-up',
+  SIGN_OUT = '/auth/sign-out',
+}

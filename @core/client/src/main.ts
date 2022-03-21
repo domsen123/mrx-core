@@ -1,5 +1,5 @@
 import app from 'app-root/index';
-import { extendClient } from '@mrx/utils';
+import { createInstance, extendClient, useStore } from '@mrx/utils';
 import { createHead } from '@vueuse/head';
 import type { Context } from '../types';
 
@@ -10,10 +10,16 @@ export const options = {
 };
 
 export const main = async (ctx: Context) => {
+  createInstance(ctx);
   Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
     i.install?.(ctx),
   );
-
+  const store = useStore();
+  const { isClient, request } = ctx;
+  if (!isClient && request.auth) {
+    store.setItem('currentAuth', request.auth);
+    store.setItem('currentToken', request.token);
+  }
   for (const setup of setups) {
     await setup(ctx);
   }

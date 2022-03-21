@@ -62,9 +62,11 @@ export const createResourceTable = async ({
     cb: (table) => {
       Object.keys(schema.properties).forEach((columnName) => {
         const type = schema.properties[columnName].type;
+        const format = schema.properties[columnName].format ?? '';
         // let column: Knex.ColumnBuilder | undefined;
         if (['string'].includes(type)) {
-          table.string(columnName);
+          if (format === 'uuid') table.uuid(columnName);
+          else table.string(columnName);
         }
         if (['number', 'integer'].includes(type)) {
           table.integer(columnName);

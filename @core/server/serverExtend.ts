@@ -37,7 +37,7 @@ export const extendServer = async (options: ExtendServerOptions) => {
   });
 
   // apply ready hooks
-  if (_onReady) onReady.push(_onReady(definition));
+  if (_onReady) onReady.push(_onReady);
 
   // apply plugins
   for (const p of _p) {

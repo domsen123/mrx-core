@@ -20,7 +20,7 @@ export const UsersRolesSchema = Type.Intersect([
 
 export const UsersPermissionsSchemaUnsaved = Type.Object({
   user_uuid: Type.String({ title: 'User', format: 'uuid' }),
-  role_uuid: Type.String({ title: 'Role', format: 'uuid' }),
+  permission_uuid: Type.String({ title: 'Permission', format: 'uuid' }),
 });
 export const UsersPermissionsSchema = Type.Intersect([
   UsersPermissionsSchemaUnsaved,

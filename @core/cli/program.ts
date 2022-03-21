@@ -18,7 +18,7 @@ const commander = new Command();
  */
 export const execute = async (): Promise<void> => {
   commander.command('test').action(async () => {
-    getLogger().info(`TEST TEST TEST`);
+    getLogger().info(`TEST TEST TEST %s`, process.env.HOST_URL);
   });
   commander.command('dev').action(async () => {
     process.env.NODE_ENV = 'development';

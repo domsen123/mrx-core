@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.ts",
   "dependencies": {
+    "@mrx/types": "workspace:^1.0.0",
     "@mrx/utils": "workspace:^1.0.0"
   }
 }

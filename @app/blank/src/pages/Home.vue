@@ -1,3 +1,9 @@
 <template lang="pug">
-h1 Home
+v-app
+  v-app-bar
+    v-spacer
+    v-btn(to="/admin") Admin
+  v-main
+    v-container
+      h1 Blank Page
 </template>

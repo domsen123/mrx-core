@@ -1,15 +1,25 @@
 import { resolve } from 'path';
-import { __dirname, defineServerPlugin, getDatabase } from '@mrx/server';
+import {
+  __dirname,
+  defineServerPlugin,
+  getDatabase,
+  setServerLocator,
+} from '@mrx/server';
 import resources from './server/resources';
 import endpoints from './server/endpoints';
 import pkg from './package.json';
+import { AuthServerService } from './server/services';
+import { useMiddleware } from './server/middlewares/is-auth.middleware';
 
 export default defineServerPlugin(async () => {
   return {
     name: `${pkg.name}-server`,
     endpoints,
     resources,
-    onReady: async () => {
+    onReady: async ({ app }) => {
+      app.use(useMiddleware);
+      setServerLocator('auth', new AuthServerService());
+
       const root = __dirname(import.meta.url);
       const migrationsDir = resolve(root, 'server/database/migrations');
       const seedDir = resolve(root, 'server/database/seeds');

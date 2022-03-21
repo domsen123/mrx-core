@@ -1,5 +1,6 @@
 import {
   createClientToken,
+  decodeClientToken,
   getDatabase,
   omit,
   uuidv4,
@@ -66,4 +67,14 @@ export class AuthServerService {
 
   public SignUp = async () => {};
   public SignOut = async () => {};
+
+  public GetUserByToken = (access_token: string): IAuth => {
+    const {
+      iat: _,
+      exp: __,
+      maxAge: ___,
+      ...user
+    } = decodeClientToken(access_token, this.secret_string);
+    return user as IAuth;
+  };
 }

@@ -1,13 +1,14 @@
-import { defineEndpoint, getLocator } from '@mrx/server';
+import { defineEndpoint, getServerLocator } from '@mrx/server';
+import { AUTH_ENDPOINT } from '@mrx/types';
 import type { SignInRequest } from '@mrx/types/contracts';
 import type { AuthServerService } from '../services/auth.service';
 
 export default defineEndpoint({
-  url: '/auth/sign-in',
+  url: AUTH_ENDPOINT.SIGN_IN,
   method: 'POST',
   handler: async (req, reply) => {
     const { signInDto, additional } = req.body as SignInRequest;
-    const service = getLocator<AuthServerService>('auth');
+    const service = getServerLocator<AuthServerService>('auth');
     const result = await service.SignIn(signInDto);
     const {
       session: { access_token, refresh_token, max_age },
