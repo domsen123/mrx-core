@@ -1,8 +1,9 @@
 import { resolve } from 'path';
+import type { RouteOptions } from 'fastify';
 import fastify from 'fastify';
 import middie from 'middie';
 import { extendServer, getLogger, importIfExists } from '@mrx/server';
-import type { ServerDefinition } from '@mrx/types';
+import type { Resource, ServerDefinition } from '@mrx/types';
 import { renderRequest } from './serverRenderer';
 import { useServerSettings } from './serverUtils';
 
@@ -24,23 +25,20 @@ export const startInstance = async (mode: 'dev' | 'prod') => {
     resolve(process.cwd(), 'server.ts'),
   );
 
+  let __endpoints: RouteOptions[] = [];
+  let __resources: Resource[] = [];
+
   if (server) {
     const { endpoints, onReady, resources } = await extendServer({
       server: server.default(),
     });
 
+    __endpoints = endpoints;
+    __resources = resources;
+
     // Call every onReady Hook on App/Plugins
     for (const _onReady of onReady) {
       await _onReady;
-    }
-
-    // Setup every endpoint from App/Plugins
-    for (const endpoint of endpoints) {
-      await app.route(endpoint);
-    }
-
-    for (const resource of resources) {
-      // TODO
     }
   }
 
@@ -48,15 +46,27 @@ export const startInstance = async (mode: 'dev' | 'prod') => {
   if (!getSetting('apiPrefix')) setSetting('apiPrefix', DEFAULT_API_PREFIX);
   if (!getSetting('serverPort')) setSetting('serverPort', DEFAULT_PORT);
 
+  // Setup every endpoint from App/Plugins
+  for (const endpoint of __endpoints) {
+    await app.route({
+      ...endpoint,
+      url: `${getSetting('apiPrefix')}${endpoint.url}`,
+    });
+  }
+
+  for (const resource of __resources) {
+    // TODO
+  }
+
   // Render SSR Application
   await renderRequest(app, mode);
 
   try {
-    // console.log(app.printRoutes());
     await app.listen(getSetting('serverPort'));
     getLogger().info(
       `👂 Server is listening on port ${getSetting('serverPort')}`,
     );
+    console.log(app.printRoutes());
   } catch (e: any) {
     console.error(e.message);
   }

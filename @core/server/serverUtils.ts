@@ -2,6 +2,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import jwt from 'jsonwebtoken';
 import type { ServerSettings } from '@mrx/types';
 export * from '@mrx/utils/logger';
 export * from '@mrx/utils/utils';
@@ -45,6 +46,24 @@ export const verifyPassword = async (
       resolve(key === derivedKey.toString('hex'));
     });
   });
+};
+
+// Create a Client Token
+export const createClientToken = (
+  payload: any,
+  secret: string,
+  maxAge: number,
+) => {
+  const toSign = {
+    ...payload,
+    maxAge,
+  };
+  return jwt.sign(toSign, secret, { expiresIn: maxAge });
+};
+
+// Decode a Client Token
+export const decodeClientToken = <T>(token: string, secret: string): T => {
+  return jwt.verify(token, secret) as T;
 };
 
 let __settings: ServerSettings = {};

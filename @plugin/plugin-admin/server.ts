@@ -1,11 +1,13 @@
 import { resolve } from 'path';
 import { __dirname, defineServerPlugin, getDatabase } from '@mrx/server';
 import resources from './server/resources';
+import endpoints from './server/endpoints';
 import pkg from './package.json';
 
 export default defineServerPlugin(async () => {
   return {
     name: `${pkg.name}-server`,
+    endpoints,
     resources,
     onReady: async () => {
       const root = __dirname(import.meta.url);

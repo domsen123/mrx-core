@@ -14,7 +14,8 @@
       {
         "ignoreDeclarationMerge": true
       }
-    ]
+    ],
+    "no-throw-literal": "off"
   },
   "overrides": [
     {
