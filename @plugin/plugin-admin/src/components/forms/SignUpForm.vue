@@ -1,3 +1,5 @@
+getLogger, import { redirect } from '@mrx/utils'; import { useAuth } from
+'../../services/useAuth';
 <template lang="pug">
 v-form(@submit.prevent="onSignUp" v-model="valid")
   v-row(dense)
@@ -34,7 +36,7 @@ v-form(@submit.prevent="onSignUp" v-model="valid")
     template(#appendInner)
       .d-flex(@click="showPassword = !showPassword")
         i-ph-eye(v-if="showPassword")
-        i-ph-eye-closed(V-else)
+        i-ph-eye-closed(v-else)
   
   v-slide-y-transition
     v-text-field(
@@ -49,6 +51,11 @@ v-form(@submit.prevent="onSignUp" v-model="valid")
 </template>
 
 <script lang="ts" setup>
+import { getLogger, redirect } from '@mrx/utils';
+import { useAuth } from '../../services/useAuth';
+
+const router = useRouter();
+const valid = ref<boolean>(false);
 const showPassword = ref<boolean>(false);
 const form = reactive<any>({
   firstname: 'Dominic',
@@ -57,8 +64,14 @@ const form = reactive<any>({
   password: 'lala4712',
   confirm: 'lala4712',
 });
-const valid = ref<boolean>(false);
 
 // Methods
-const onSignUp = async () => {};
+const onSignUp = async () => {
+  try {
+    await useAuth().SignUp(form);
+    await redirect('/', router);
+  } catch (e: any) {
+    getLogger().error(`Error: SignUp: %s`, e.message ?? 'UNKNOWN');
+  }
+};
 </script>

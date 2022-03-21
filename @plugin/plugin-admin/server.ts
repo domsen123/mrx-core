@@ -17,8 +17,8 @@ export default defineServerPlugin(async () => {
     endpoints,
     resources,
     onReady: async ({ app }) => {
-      app.use(useMiddleware);
       setServerLocator('auth', new AuthServerService());
+      app.use(useMiddleware);
 
       const root = __dirname(import.meta.url);
       const migrationsDir = resolve(root, 'server/database/migrations');
