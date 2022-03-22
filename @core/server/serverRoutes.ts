@@ -9,6 +9,22 @@ import type {
 } from '@mrx/types';
 import { getDatabase } from './serverDatabase';
 
+const replaceWithSlot = (
+  layout: IComponentResolved[],
+  slotContent: IComponentResolved[],
+  slotName: string,
+) => {
+  for (const _l of layout) {
+    if (_l.component === 'slot') {
+      return slotContent;
+    } else {
+      // @ts-expect-error ...
+      const _t = replaceWithSlot(_l.components, slotContent, slotName);
+      if (_t) _l.components = _t;
+    }
+  }
+};
+
 const getChildComponents = async (component: IComponentResolved) => {
   const db = getDatabase();
   if (!db) return;
@@ -33,35 +49,74 @@ export const getRouteInformation = async ({
   if (routeTableExists) {
     const { pathname: path } = new URL(url);
     // prettier-ignore
-    const route = await db<IRoute>(DB_TABLES.ROUTES).where({path}).first()
+    const route = await db<IRoute>(DB_TABLES.ROUTES).where({path}).first<IRouteResolved>()
     if (route) {
+      // Check if Route has a layout
       let __layout: ILayoutResolved | undefined;
       if (route.layout) {
-        // prettier-ignore
-        __layout = await db<ILayoutResolved>(DB_TABLES.LAYOUTS).where({ uuid: route.layout }).first();
+        __layout = await db<ILayoutResolved>(DB_TABLES.LAYOUTS)
+          .where({ uuid: route.layout })
+          .first();
         if (__layout) {
-          // prettier-ignore
-          const layoutComponents = await db<IComponentResolved>(DB_TABLES.COMPONENTS).where({ parent: __layout.uuid });
-          for (const component of layoutComponents) {
-            await getChildComponents(component);
+          // Root Layout Components
+          const layoutComponents = await db<IComponentResolved>(
+            DB_TABLES.COMPONENTS,
+          ).where({ parent: __layout.uuid });
+          for (const layoutComponent of layoutComponents) {
+            // Fetch recursive
+            await getChildComponents(layoutComponent);
           }
-          __layout.components = layoutComponents ?? [];
+          route.components = layoutComponents;
         }
       }
-      const components = await db<IComponentResolved>(
-        DB_TABLES.COMPONENTS,
-      ).where({
-        parent: route.uuid,
-      });
-      for (const component of components) {
-        await getChildComponents(component);
+      // prettier-ignore
+      const pageComponents = await db<IComponentResolved>(DB_TABLES.COMPONENTS).where({parent: route.uuid});
+      const slots: Record<string, IComponentResolved[]> = {};
+      for (const pageComponent of pageComponents) {
+        const appendToSlot = pageComponent.slot ?? 'default';
+        if (!slots[appendToSlot]) slots[appendToSlot] = [];
+        await getChildComponents(pageComponent);
+        slots[appendToSlot].push(pageComponent);
       }
-      const t: IRouteResolved = {
-        ...route,
-        components,
-        layout: __layout,
-      };
-      return t;
+      if (__layout) {
+        Object.keys(slots).forEach((slotName) => {
+          const _t = replaceWithSlot(
+            route.components,
+            slots[slotName],
+            slotName,
+          );
+          if (_t) route.components = _t;
+        });
+      }
+
+      return route;
+      // let __layout: ILayoutResolved | undefined;
+      // if (route.layout) {
+      //   // prettier-ignore
+      //   __layout = await db<ILayoutResolved>(DB_TABLES.LAYOUTS).where({ uuid: route.layout }).first();
+      //   if (__layout) {
+      //     // prettier-ignore
+      //     const layoutComponents = await db<IComponentResolved>(DB_TABLES.COMPONENTS).where({ parent: __layout.uuid });
+      //     for (const component of layoutComponents) {
+      //       await getChildComponents(component);
+      //     }
+      //     __layout.components = layoutComponents ?? [];
+      //   }
+      // }
+      // const components = await db<IComponentResolved>(
+      //   DB_TABLES.COMPONENTS,
+      // ).where({
+      //   parent: route.uuid,
+      // });
+      // for (const component of components) {
+      //   await getChildComponents(component);
+      // }
+      // const t: IRouteResolved = {
+      //   ...route,
+      //   components,
+      //   layout: __layout,
+      // };
+      // return route;
     }
 
     // const pageInfo = await db<IRoute>(DB_TABLES.ROUTES)

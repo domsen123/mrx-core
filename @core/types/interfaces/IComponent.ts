@@ -9,6 +9,7 @@ export const ComponentSchemaUnsaved = Type.Object({
   parent: Type.Optional(
     Type.String({ title: 'Parent', format: 'uuid', index: true }),
   ),
+  slot: Type.Optional(Type.String({ title: 'Slot', default: 'default' })),
   bindings: Type.Optional(Type.Any({ format: 'object' })),
 });
 export const ComponentSchema = Type.Intersect([

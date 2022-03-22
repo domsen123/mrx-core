@@ -1,6 +1,5 @@
 <template lang="pug">
-page-builder-component(v-if="layout" v-for="component in layout" :component="component")
-  page-builder-component(v-for="component in components" :component="component")
+page-builder-component(v-for="component in components" :component="component")
 </template>
 
 <script lang="ts" setup>
@@ -11,6 +10,7 @@ import PageBuilderComponent from '../components/PageBuilderComponent.vue';
 
 defineComponent({
   name: 'PageBuilder',
+  inheritAttrs: false,
 });
 const props = defineProps({
   pageInfo: {
@@ -19,12 +19,6 @@ const props = defineProps({
   },
 });
 
-const layout = computed(() => {
-  if (props.pageInfo?.layout) {
-    return props.pageInfo.layout.components;
-  }
-  return [];
-});
 const components = computed(() => {
   if (props.pageInfo?.components) {
     return props.pageInfo.components;

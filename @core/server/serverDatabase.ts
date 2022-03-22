@@ -65,6 +65,7 @@ export const createResourceTable = async ({
         const type = schema.properties[columnName].type;
         const format = schema.properties[columnName].format ?? '';
         const index = schema.properties[columnName].index ?? false;
+        const defaultValue = schema.properties[columnName].default ?? false;
         // let column: Knex.ColumnBuilder | undefined;
         if (['string'].includes(type)) {
           if (format === 'uuid') column = table.uuid(columnName);
@@ -81,8 +82,9 @@ export const createResourceTable = async ({
             column = table.text(columnName);
           }
         }
-        if (index && column) {
-          column.index();
+        if (column) {
+          if (index) column.index();
+          if (defaultValue) column.defaultTo(defaultValue);
         }
       });
     },

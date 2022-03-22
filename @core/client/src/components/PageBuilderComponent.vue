@@ -1,5 +1,5 @@
 <template lang="pug">
-component(v-if="component" :is="component.component" v-bind="JSON.parse(component.bindings ?? '{}')" :data-tag="component.component")
+component(v-if="component" :is="component.component" v-bind="JSON.parse(component.bindings ?? '{}')")
   template(v-if="component.innerHtml || component.innerText")
     template(v-if="component.innerText") {{ component.innerText}}
     template(v-if="component.innerHtml") #[div(v-html="component.innerHtml")]
@@ -11,7 +11,7 @@ component(v-if="component" :is="component.component" v-bind="JSON.parse(componen
 </template>
 
 <script lang="ts" setup>
-import type { IComponentResolved } from '@mrx/types';
+import type { IComponent, IComponentResolved } from '@mrx/types';
 import type { PropType } from 'vue';
 
 defineComponent({

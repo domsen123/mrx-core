@@ -250,10 +250,9 @@ export async function seed(knex: Knex): Promise<void> {
   const adminLayoutVMain = toCreateItem<IComponentUnsaved>(
     { component: 'v-main', parent: adminLayoutVDefaultProvider.uuid }, adminUuid,
   );
-  // prettier - ignore;
+  // prettier-ignore
   const adminLayoutVDefaultSlot = toCreateItem<IComponentUnsaved>(
-    { component: 'slot', parent: adminLayoutVMain.uuid },
-    adminUuid,
+    { component: 'slot', parent: adminLayoutVMain.uuid, bindings: JSON.stringify({ name: 'default' }) }, adminUuid,
   );
 
   await knex<ILayoutUnsaved>(DB_TABLES.LAYOUTS).insert(adminLayout);
@@ -278,8 +277,16 @@ export async function seed(knex: Knex): Promise<void> {
     { component: 'h1', innerText: 'AdminPage', parent: adminPage.uuid }, adminUuid
   )
 
+  const adminPageHeadline2 = toCreateItem<IComponentUnsaved>(
+    { component: 'h2', innerText: 'SubHeader', parent: adminPage.uuid },
+    adminUuid,
+  );
+
   await knex<IRouteUnsaved>(DB_TABLES.ROUTES).insert(adminPage);
-  await knex<IComponentUnsaved>(DB_TABLES.COMPONENTS).insert(adminPageHeadline);
+  await knex<IComponentUnsaved>(DB_TABLES.COMPONENTS).insert([
+    adminPageHeadline,
+    adminPageHeadline2,
+  ]);
 
   // // Create Test Page
   // const testPage = toCreateItem<IRouteUnsaved>(

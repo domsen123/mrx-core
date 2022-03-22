@@ -7,6 +7,7 @@ import { LayoutResolved } from './ILayout';
 export const RouteSchemaUnsaved = Type.Object({
   name: Type.String({ title: 'name' }),
   path: Type.String({ title: 'Path' }),
+  // slot: Type.Optional(Type.String({ title: 'Slot', default: 'default' })),
   layout: Type.Optional(Type.String({ title: 'Layout', format: 'uuid' })),
   needsAuth: Type.Optional(Type.Boolean({ title: 'Needs Authentication' })),
 });
