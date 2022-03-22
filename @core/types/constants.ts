@@ -6,6 +6,10 @@ export enum DB_TABLES {
   USERS_ROLES = 'users_roles',
   USERS_PERMISSIONS = 'users_permissions',
   ROLES_PERMISSIONS = 'roles_permissions',
+  RESOURCES = 'resources',
+  ROUTES = 'page_routes',
+  LAYOUTS = 'page_layouts',
+  COMPONENTS = 'page_components',
 }
 
 export enum BASE_PERMISSION {

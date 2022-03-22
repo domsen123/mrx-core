@@ -6,7 +6,9 @@ v-app
       v-spacer
       v-btn(@click="onSignOut") Sign Out
     v-main
+      slot(v-if="$slots.default")
       router-view
+      
 </template>
 
 <script lang="ts" setup>

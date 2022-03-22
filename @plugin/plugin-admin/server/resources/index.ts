@@ -1,15 +1,36 @@
 import { DB_TABLES } from '@mrx/types';
 import {
+  ComponentSchemaUnsaved,
+  LayoutSchemaUnsaved,
   PermissionSchemaUnsaved,
   ProfileSchemaUnsaved,
+  ResourceSchemaUnsaved,
   RoleSchemaUnsaved,
   RolesPermissionsSchemaUnsaved,
+  RouteSchemaUnsaved,
   UserSchemaUnsaved,
   UsersPermissionsSchemaUnsaved,
   UsersRolesSchemaUnsaved,
 } from '@mrx/types/interfaces';
 
 export default [
+  // RESOURCES HAVE TO BE FIRST!
+  {
+    name: DB_TABLES.RESOURCES,
+    schema: ResourceSchemaUnsaved,
+  },
+  {
+    name: DB_TABLES.ROUTES,
+    schema: RouteSchemaUnsaved,
+  },
+  {
+    name: DB_TABLES.LAYOUTS,
+    schema: LayoutSchemaUnsaved,
+  },
+  {
+    name: DB_TABLES.COMPONENTS,
+    schema: ComponentSchemaUnsaved,
+  },
   {
     name: DB_TABLES.USERS,
     schema: UserSchemaUnsaved,

@@ -6,7 +6,16 @@ import type { Context } from '../types';
 const { routes, setups } = await extendClient({ app: app() });
 
 export const options = {
-  routes,
+  routes: [
+    ...routes,
+    {
+      path: '/:catchAll(.*)',
+      component: () => import('./pages/PageBuilder.vue'),
+      meta: {
+        pageBuilder: true,
+      },
+    },
+  ],
 };
 
 export const main = async (ctx: Context) => {
@@ -14,6 +23,7 @@ export const main = async (ctx: Context) => {
   Object.values(import.meta.globEager('./modules/*.ts')).map((i) =>
     i.install?.(ctx),
   );
+
   const store = useStore();
   const { isClient, request } = ctx;
   if (!isClient && request.auth) {
@@ -24,7 +34,14 @@ export const main = async (ctx: Context) => {
     await setup(ctx);
   }
 
-  const { app } = ctx;
+  const { app, router } = ctx;
+
+  router.beforeEach(async (to) => {
+    if (to.meta.pageBuilder) {
+      // TODO
+    }
+  });
+
   const head = createHead();
   app.use(head);
   return { head };

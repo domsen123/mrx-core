@@ -8,6 +8,7 @@ declare module 'vue' {
     IPhEye: typeof import('~icons/ph/eye')['default']
     IPhEyeClosed: typeof import('~icons/ph/eye-closed')['default']
     IPhUser: typeof import('~icons/ph/user')['default']
+    PageBuilderComponent: typeof import('./src/components/PageBuilderComponent.vue')['default']
   }
 }
 

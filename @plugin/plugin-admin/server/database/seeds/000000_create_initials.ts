@@ -1,17 +1,23 @@
 import type { Knex } from '@mrx/server';
 import { hashPassword, toCreateItem } from '@mrx/server';
-import { BASE_PERMISSION, BASE_ROLE, DB_TABLES } from '@mrx/types';
+import { BASE_PERMISSION, BASE_ROLE, DB_TABLES, ILayout } from '@mrx/types';
 import type {
+  IComponent,
+  IComponentUnsaved,
+  ILayoutUnsaved,
   IPermission,
   IPermissionUnsaved,
   IProfileUnsaved,
+  IResourceUnsaved,
   IRole,
   IRoleUnsaved,
   IRolesPermissionsUnsaved,
+  IRouteUnsaved,
   IUser,
   IUserUnsaved,
   IUsersRolesUnsaved,
 } from '@mrx/types';
+import resources from '../../resources';
 
 export async function seed(knex: Knex): Promise<void> {
   const findRoleUuidBySlug = async (
@@ -217,4 +223,102 @@ export async function seed(knex: Knex): Promise<void> {
       adminUuid,
     ),
   ]);
+
+  // Create AdminLayout
+  // prettier-ignore
+  const adminLayout = toCreateItem<ILayoutUnsaved>(
+    { name: 'AdminLayout' }, adminUuid,
+  );
+
+  // prettier-ignore
+  const adminLayoutVApp = toCreateItem<IComponentUnsaved>(
+    { component: 'v-app', parent: adminLayout.uuid }, adminUuid,
+  );
+  // prettier-ignore
+  const adminLayoutVDefaultProvider = toCreateItem<IComponentUnsaved>(
+    { component: 'v-defaults-provider', parent: adminLayoutVApp.uuid, bindings: JSON.stringify({}) }, adminUuid,
+  );
+  // prettier-ignore
+  const adminLayoutVNavigationDrawer = toCreateItem<IComponentUnsaved>(
+    { component: 'v-navigation-drawer', parent: adminLayoutVDefaultProvider.uuid }, adminUuid,
+  );
+  // prettier-ignore
+  const adminLayoutVAppBar = toCreateItem<IComponentUnsaved>(
+    { component: 'v-app-bar', parent: adminLayoutVDefaultProvider.uuid }, adminUuid,
+  );
+  // prettier-ignore
+  const adminLayoutVMain = toCreateItem<IComponentUnsaved>(
+    { component: 'v-main', parent: adminLayoutVDefaultProvider.uuid }, adminUuid,
+  );
+  // prettier - ignore;
+  const adminLayoutVDefaultSlot = toCreateItem<IComponentUnsaved>(
+    { component: 'slot', parent: adminLayoutVMain.uuid },
+    adminUuid,
+  );
+
+  await knex<ILayoutUnsaved>(DB_TABLES.LAYOUTS).insert(adminLayout);
+  await knex<IComponentUnsaved>(DB_TABLES.COMPONENTS).insert([
+    adminLayoutVApp,
+    adminLayoutVDefaultProvider,
+    adminLayoutVNavigationDrawer,
+    adminLayoutVAppBar,
+    adminLayoutVMain,
+    adminLayoutVDefaultSlot,
+  ]);
+
+  // Create AdminPage
+  // prettier-ignore
+  const adminPage = toCreateItem<IRouteUnsaved>(
+    { name: 'Admin', path: '/_test', layout: adminLayout.uuid }, adminUuid
+  );
+
+  // Create AdminPage Components
+  // prettier-ignore
+  const adminPageHeadline = toCreateItem<IComponentUnsaved>(
+    { component: 'h1', innerText: 'AdminPage', parent: adminPage.uuid }, adminUuid
+  )
+
+  await knex<IRouteUnsaved>(DB_TABLES.ROUTES).insert(adminPage);
+  await knex<IComponentUnsaved>(DB_TABLES.COMPONENTS).insert(adminPageHeadline);
+
+  // // Create Test Page
+  // const testPage = toCreateItem<IRouteUnsaved>(
+  //   {
+  //     name: 'Test Page',
+  //     path: '/_test',
+  //     layout: 'AdminDashboard',
+  //     needsAuth: false,
+  //   },
+  //   adminUuid,
+  // );
+  // await knex<IRouteUnsaved>(DB_TABLES.ROUTES).insert(testPage);
+
+  // const testComponent = toCreateItem<IComponentUnsaved>(
+  //   {
+  //     parent: testPage.uuid,
+  //     component: 'h1',
+  //     innerText: 'Das ist eine Überschrift',
+  //   },
+  //   adminUuid,
+  // );
+  // const nestedComponent = toCreateItem<IComponentUnsaved>(
+  //   {
+  //     parent: testPage.uuid,
+  //     component: 'v-container',
+  //   },
+  //   adminUuid,
+  // );
+  // const insideComp = toCreateItem<IComponentUnsaved>(
+  //   {
+  //     component: 'h2',
+  //     innerText: 'Das ist genested',
+  //     parent: nestedComponent.uuid,
+  //   },
+  //   adminUuid,
+  // );
+  // await knex<IComponentUnsaved>(DB_TABLES.COMPONENTS).insert([
+  //   testComponent,
+  //   nestedComponent,
+  //   insideComp,
+  // ]);
 }

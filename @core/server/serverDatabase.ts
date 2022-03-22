@@ -36,7 +36,7 @@ export const createTable = async ({
   }
 
   await db.schema.createTable(table_name, (table) => {
-    table.uuid('uuid').notNullable();
+    table.uuid('uuid').primary().notNullable();
     cb(table);
     table.timestamp('created_at').notNullable();
     table.timestamp('updated_at').notNullable();
@@ -61,18 +61,28 @@ export const createResourceTable = async ({
     force,
     cb: (table) => {
       Object.keys(schema.properties).forEach((columnName) => {
+        let column: Knex.ColumnBuilder | undefined;
         const type = schema.properties[columnName].type;
         const format = schema.properties[columnName].format ?? '';
+        const index = schema.properties[columnName].index ?? false;
         // let column: Knex.ColumnBuilder | undefined;
         if (['string'].includes(type)) {
-          if (format === 'uuid') table.uuid(columnName);
-          else table.string(columnName);
+          if (format === 'uuid') column = table.uuid(columnName);
+          else column = table.string(columnName);
         }
         if (['number', 'integer'].includes(type)) {
-          table.integer(columnName);
+          column = table.integer(columnName);
         }
         if (['boolean'].includes(type)) {
-          table.integer(columnName);
+          column = table.boolean(columnName);
+        }
+        if (!column) {
+          if (format === 'object') {
+            column = table.text(columnName);
+          }
+        }
+        if (index && column) {
+          column.index();
         }
       });
     },

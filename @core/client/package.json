@@ -5,6 +5,7 @@
   "main": "index.ts",
   "dependencies": {
     "@iconify/json": "^2.1.17",
+    "@mrx/server": "workspace:^1.0.0",
     "@mrx/types": "workspace:^1.0.0",
     "@mrx/utils": "workspace:^1.0.0",
     "@vitejs/plugin-vue": "^2.2.4",

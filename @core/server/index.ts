@@ -4,5 +4,7 @@ export * from './serverExtend';
 export * from './serverInstance';
 export * from './serverLocator';
 export * from './serverRenderer';
+export * from './serverRoutes';
 export * from './serverUtils';
+export * from './shims.d';
 export * from './types';
