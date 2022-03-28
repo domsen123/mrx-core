@@ -11,7 +11,7 @@ export default defineServer(async () => ({
         host: 'localhost',
         database: 'mrx_core',
         user: 'db_root',
-        password: 'db_root',
+        password: process.env.DB_PASSWORD ?? '',
       },
     },
   },

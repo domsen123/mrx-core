@@ -54,8 +54,8 @@ const form = reactive<any>({
   firstname: 'Dominic',
   lastname: 'Marx',
   username: 'dmarx@marxulm.de',
-  password: 'lala4712',
-  confirm: 'lala4712',
+  password: 'pass4word',
+  confirm: 'pass4word',
 });
 const valid = ref<boolean>(false);
 
